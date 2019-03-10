@@ -11,6 +11,7 @@ public class Driver {
      * @param args Command line input
      */
     public static void main(String[] args){
-        DFATest.test1("a b a b a a b a b a");
+        //DFATest.test1("c b a b a a b a b a");
+        DFATest.test2("b b a b a b a b");
     }
 }

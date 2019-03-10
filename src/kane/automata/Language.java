@@ -30,6 +30,20 @@ public class Language {
     }
 
     /**
+     * Checks if a particular input is contained in the language.
+     * @param input Input that is being checked
+     * @return True if {@code input} is contained in the language, false otherwise.
+     */
+    public boolean contains(String input){
+        for(String s: lang){
+            if(s.equals(input)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Represents the language as a string seperated by commas.
      * @return String that represents each character in the language.
      */

@@ -1,7 +1,5 @@
 package kane.automata;
 
-import kane.automata.dfa.State;
-
 /**
  * This functional interface represents a transition function for a state. The function {@code accepts(String input)}
  * must return a state. Only DFAs are supported as of now. Every state must have a {@code TransitionFunction}

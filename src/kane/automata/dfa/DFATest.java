@@ -1,8 +1,7 @@
 package kane.automata.dfa;
 
 import kane.automata.Language;
-import kane.automata.dfa.DFA;
-import kane.automata.dfa.State;
+import kane.automata.State;
 
 /**
  * Test class for DFA.
@@ -27,9 +26,9 @@ public class DFATest {
      */
     public static void test1(String userInput){
         Language lang = new Language("a", "b");
-        State q0 = new State("q0", lang, false);
-        State q1 = new State("q1", lang, false);
-        State q2 = new State("q2", lang, true);
+        State q0 = new State("q0",false);
+        State q1 = new State("q1",false);
+        State q2 = new State("q2",true);
         q0.setTF(input->{
             if(input.equals("a")){
                 return q1;
@@ -51,7 +50,57 @@ public class DFATest {
                 return q0;
             }
         });
-        DFA dfa = new DFA(q0);
+        DFA dfa = new DFA(lang, q0,q1,q2);
+        System.out.println(dfa.takeString(userInput));
+    }
+
+    /**
+     * This DFA accepts strings from http://www.cs.tau.ac.il/~bchor/CM/Compute2-Printer.pdf p.3
+     * @param userInput String being tested. Each character should be separated by a space.
+     */
+    public static void test2(String userInput){
+        Language lang = new Language("a","b");
+        State s = new State("s");
+        State q1 = new State("q1", true);
+        State q2 = new State("q2");
+        State r1 = new State("r1", true);
+        State r2 = new State("r2");
+        DFA dfa = new DFA(lang, s,q1,q2,r1,r2);
+        s.setTF(input->{
+            if(input.equals("a")){
+                return q1;
+            }else{
+                return r1;
+            }
+        });
+        q1.setTF(input->{
+            if(input.equals("a")){
+                return q1;
+            }else{
+                return q2;
+            }
+        });
+        q2.setTF(input->{
+            if(input.equals("a")){
+                return q1;
+            }else{
+                return q2;
+            }
+        });
+        r1.setTF(i->{
+            if(i.equals("b")){
+                return r1;
+            }else{
+                return r2;
+            }
+        });
+        r2.setTF(i->{
+            if(i.equals("a")){
+                return r2;
+            }else{
+                return r1;
+            }
+        });
         System.out.println(dfa.takeString(userInput));
     }
 }

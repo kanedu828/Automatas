@@ -1,30 +1,33 @@
-package kane.automata.dfa;
-import kane.automata.Language;
-import kane.automata.TransitionFunction;
+package kane.automata;
 
 /**
  * This class represents a single state in a automaton. Also, only binary languages are accepted.
  *
  */
-public class State {
-    String name;
-    Language lang;
-    TransitionFunction tf;
-    State nextState;
-    boolean accepting;
+public class State{
+    private String name;
+    private TransitionFunction tf;
+    private State nextState;
+    private boolean accepting;
+    private Language lang;
 
+    /**
+     * This constructor creates a state with the specified name.
+     * @param name Name of the state
+     *
+     */
+    public State(String name){
+        this.name = name;
+    }
     /**
      * This constructor creates a state with the specified name, language, and whether it is
      * an accepting state.
      * @param name Name of the state
-     * @param lang {@code Language} being used.
      * @param accepting Whether or not this state is an accepting state.
      */
-    public State(String name, Language lang, boolean accepting){
+    public State(String name, boolean accepting){
         this.name = name;
-        this.lang = lang;
         this.accepting = accepting;
-        this.tf = tf;
     }
 
     /**
@@ -35,6 +38,14 @@ public class State {
      */
     public State getNextState(){
         return nextState;
+    }
+
+    /**
+     * Returns the name of the State.
+     * @return name of the state.
+     */
+    public String getName(){
+        return name;
     }
 
     /**
@@ -54,11 +65,19 @@ public class State {
     }
 
     /**
+     * Sets the language that is acceoted for this state.
+     * @param lang Accepted language for the state.
+     */
+    public void setLang(Language lang){
+        this.lang = lang;
+    }
+
+    /**
      * Take's in an input, and depending on the defined transition function, it will set the {@code nextState}.
      * @param input The input being taken.
      */
     public void takeInput(String input){
-        if(!lang.getLang()[0].equals(input)&&!lang.getLang()[1].equals(input)){
+        if(!lang.contains(input)){
             throw new IllegalArgumentException(input + " is not in the language.");
         }
         nextState = tf.accepts(input);
